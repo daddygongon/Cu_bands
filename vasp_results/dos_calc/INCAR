@@ -1,0 +1,7 @@
+ISMEAR = -5
+SIGMA = 0.01
+LORBIT = 11
+EMIN = -10
+EMAX = 20
+NEDOS = 901
+

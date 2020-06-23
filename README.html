@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="jp" xml:lang="jp">
+<head>
+<!-- 2019-02-04 月 09:47 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cuのsp-dを区別したバンド図の描画</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="西谷滋人" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Cuのsp-dを区別したバンド図の描画</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2aaf7ca">1. イントロ</a></li>
+<li><a href="#org8f70f40">2. 不満が残る図たち</a></li>
+<li><a href="#org5102fa9">3. ここで使ったスキル</a>
+<ul>
+<li><a href="#orgaa305c6">3.1. VASP計算</a>
+<ul>
+<li><a href="#orgb6ab3f5">dos</a></li>
+<li><a href="#orgefb3240">band</a></li>
+</ul>
+</li>
+<li><a href="#orga48af1f">3.2. python - ruby 連携</a>
+<ul>
+<li><a href="#org0d3d04e">テキストベース</a></li>
+<li><a href="#org8b3170e">rubyistがpycallでpython::Dictデータで苦労した話</a>
+<ul>
+<li><a href="#org0069e82">症状と解決策</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgd2f0277">3.3. numo/gnuplot</a>
+<ul>
+<li><a href="#org721731a">線のgradation</a></li>
+<li><a href="#orga966a1e">複数の図のplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2aaf7ca" class="outline-2">
+<h2 id="org2aaf7ca"><span class="section-number-2">1</span> イントロ</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+pymatgenで提供されていたようであるが，今はうまく描画できない．
+<a href="http://nbviewer.ipython.org/urls/raw.github.com/dpsanders/matplotlib-examples/master/colorline.ipynb">BSDOSPlotteroriginalのバンド図</a>　があるがいくつかの不満な点がある．
+そこでrubyで描画アプリを作成した．
+</p>
+<ol class="org-ol">
+<li>python版で用意されているpymatgenのライブラリをPyCallで呼び出して，</li>
+<li>matplotlibの代わりにgnuplotを使い</li>
+<li>線にgradationで色をつけ</li>
+<li>bandsとdosを同時にplot</li>
+</ol>
+<p>
+している．完成版は次の通り．
+</p>
+
+<div id="orgab42bbe" class="figure">
+<p><img src="./Cu_spd_bands.png" alt="Cu_spd_bands.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>spd color gradated bands and dos for Cuの完成版．</p>
+</div>
+
+<pre class="example">
+ruby pycall/vasp_pycall.rb 'vasp_results'
+
+</pre>
+
+<p>
+で作図される．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f70f40" class="outline-2">
+<h2 id="org8f70f40"><span class="section-number-2">2</span> 不満が残る図たち</h2>
+<div class="outline-text-2" id="text-2">
+
+<div id="org0cb2dd3" class="figure">
+<p><img src="./before_pycall/bands_Cu.png" alt="bands_Cu.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>originalのバンド図．</p>
+</div>
+
+<p>
+まず，k-pointsが単純すぎる．
+</p>
+
+
+<div id="org54f4693" class="figure">
+<p><img src="./before_pycall/bands_Cu_rev.png" alt="bands_Cu_rev.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>originalのバンド図．</p>
+</div>
+
+<p>
+k-pointsを直したが，等間隔で気持ち悪い．
+</p>
+
+
+<div id="orgdab9c61" class="figure">
+<p><img src="./before_pycall/cu_band_spd.png" alt="cu_band_spd.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>originalのバンド図．</p>
+</div>
+
+
+<pre class="example">
+&gt; python bands_Cu_rev.py &gt; tmp.txt
+&gt; diff cu_data.txt tmp.txt 
+&gt; ruby read_data.rb 
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org5102fa9" class="outline-2">
+<h2 id="org5102fa9"><span class="section-number-2">3</span> ここで使ったスキル</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgaa305c6" class="outline-3">
+<h3 id="orgaa305c6"><span class="section-number-3">3.1</span> VASP計算</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+bandとdosを描画するためのvaspの計算はいくつかの注意が必要．
+綺麗なバンド図を書くには，
+</p>
+<ol class="org-ol">
+<li>POSCARは1原子だけから構成されるようにする．</li>
+<li>先ずは荒い計算で収束させておく</li>
+<li>dosは細かくとった方が良さそう</li>
+<li>bandsはlineモードで計算する</li>
+</ol>
+</div>
+
+<div id="outline-container-orgb6ab3f5" class="outline-4">
+<h4 id="orgb6ab3f5">dos</h4>
+<div class="outline-text-4" id="text-orgb6ab3f5">
+<pre class="example">
+&gt; cat KPOINTS
+Automatic mesh
+0
+Auto
+50
+$ cat INCAR
+ISMEAR = 0
+SIGMA = 0.01
+# LORBIT = 11
+$ cat POSCAR
+Cu metal rhomboedrique
+   3.620
+   0.5 0.5 0.0
+   0.0 0.5 0.5
+   0.5 0.0 0.5
+   1
+Direct
+ 0.0 0.0 0.0
+</pre>
+<p>
+次に精度を上げて計算．
+</p>
+<pre class="example">
+$ cat INCAR
+ISMEAR = -5
+SIGMA = 0.01
+LORBIT = 11
+EMIN = -10
+EMAX = 10
+NEDOS = 901
+$ cat KPOINTS
+Automatic mesh
+0
+Auto
+100
+</pre>
+</div>
+</div>
+<div id="outline-container-orgefb3240" class="outline-4">
+<h4 id="orgefb3240">band</h4>
+<div class="outline-text-4" id="text-orgefb3240">
+<pre class="example">
+$ cat INCAR
+ISMEAR = 0
+SIGMA = 0.01
+LORBIT = 11
+$ cat KPOINTS
+Line_mode KPOINTS file
+40
+Line_mode
+Reciprocal
+0.0 0.0 0.0 ! \Gamma
+0.5 0.0 0.5 ! X
+
+0.5 0.0 0.5 ! X
+0.5 0.25 0.75 ! W
+
+0.5 0.25 0.75 ! W
+0.5 0.5 0.5 ! L
+
+0.5 0.5 0.5 ! L
+0.0 0.0 0.0 ! \Gamma
+
+0.0 0.0 0.0 ! \Gamma
+0.375 0.375 0.75 ! K
+
+0.625 0.25 0.625 ! U
+0.5 0.0 0.5 ! X
+</pre>
+<p>
+あまりenergyの収束がよくないが，多分，
+line_modeではそうなのだろう．バンド図を書かせる時の常識か？
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga48af1f" class="outline-3">
+<h3 id="orga48af1f"><span class="section-number-3">3.2</span> python - ruby 連携</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+pythonの結果をtextに出力して，それを読み込ませたが，意外と手間．
+pycallとnumo/gnuplotで作る方が気持ちいい．
+</p>
+</div>
+
+<div id="outline-container-org0d3d04e" class="outline-4">
+<h4 id="org0d3d04e">テキストベース</h4>
+<div class="outline-text-4" id="text-org0d3d04e">
+<p>
+printでtmp.txtとかに打ち出して，それをruby側で読み込む．
+jsonでのtransferの方が便利かも．．．
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ruby"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">get_ke_data</span>(lines)
+  data=[]
+  m = lines[0].match(<span style="color: #8b2252;">/\[\[\s+(.+)\]/</span>)
+  data &lt;&lt; m[1].scanf(<span style="color: #8b2252;">"%f %f"</span>)
+  lines.each <span style="color: #a020f0;">do</span> |line|
+    <span style="color: #a020f0;">if</span> m = line.match(<span style="color: #8b2252;">/\[\s+(.+)\]\]/</span>)
+      data &lt;&lt; m[1].scanf(<span style="color: #8b2252;">"%f %f"</span>)
+    <span style="color: #a020f0;">end</span>
+  <span style="color: #a020f0;">end</span>
+  <span style="color: #a020f0;">return</span> data
+<span style="color: #a020f0;">end</span>
+</pre>
+</div>
+<p>
+などとして，matchとscanfで取るのが正解．これをmatchで
+全部やとうとすると，時々入るfloatのe表示に対応できない．
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8b3170e" class="outline-4">
+<h4 id="org8b3170e">rubyistがpycallでpython::Dictデータで苦労した話</h4>
+<div class="outline-text-4" id="text-org8b3170e">
+<p>
+<a href="https://qiita.com/stat/items/a383451e7f824e4c9627">PyCall Ruby版 Tips</a>にほぼ完璧な対応表がある．
+さらに，numpy特有の記法
+</p>
+<pre class="example">
+# 最後の行へのアクセス pythonだと m[-1,:] と書くところ
+
+</pre>
+<p>
+などと，rubyistにわかりやすいnumpyの解説まで付いている．
+</p>
+<div class="org-src-container">
+<pre class="src src-ruby">require <span style="color: #8b2252;">'pycall/import'</span>
+include <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">Import</span>
+
+pyimport <span style="color: #008b8b;">:math</span>
+p math.sin(math.pi / 4) - <span style="color: #228b22;">Math</span>.sin(<span style="color: #228b22;">Math</span>::<span style="color: #228b22;">PI</span> / 4)   <span style="color: #b22222;"># </span><span style="color: #b22222;">=&gt; 0.0</span>
+
+</pre>
+</div>
+<p>
+という風に簡単にできそうに見える．．．
+</p>
+
+<p>
+ところが，複雑なpythonのデータ構造を扱う時には
+非常に苦労する．原因はdictのkeyがよくわからないから．
+単純な文字を取る時にはいいが，少し複雑な文字表記による
+enumなどのkeyではうまく取れないようだ．
+数字での取り出し，keysでの取り出しなどout.
+唯一，
+</p>
+<pre class="example">
+p arg1 = PyCall::Dict.({'Cu': PyCall::Tuple.(["s", "p", "d"])})
+
+</pre>
+<p>
+でPythonのDictでやったのは成功しているが，これを
+汎化するのは難しそう．
+以下の通りarrayにしてそこから数字で指定するのが手っ取り早そう．
+</p>
+</div>
+
+<div id="outline-container-org0069e82" class="outline-5">
+<h5 id="org0069e82">症状と解決策</h5>
+<div class="outline-text-5" id="text-org0069e82">
+<p>
+pymatgenにあるVasprun::tdosあるいは
+Vasprun::compolete_dos
+などは取れる．
+</p>
+
+<p>
+p spd_dos = dosrun.complete_dos.get_spd_dos()
+とすると，
+</p>
+<blockquote>
+<p>
+{&lt;OrbitalType.s: 0&gt;: &lt;pymatgen.electronic_structure.dos.Dos object at 0x102dd4710&gt;, &lt;OrbitalType.p: 1&gt;: &lt;pymatgen.electronic_structure.dos.Dos object at 0x102dc2dd8&gt;, &lt;OrbitalType.d: 2&gt;: &lt;pymatgen.electronic_structure.dos.Dos object at 0x102d962b0&gt;}
+</p>
+</blockquote>
+<p>
+と出力される．これはspd_dos('OrbitalType.s')で取れそうに思うが
+だめ．そこで，
+</p>
+<pre class="example">
+p s_d = spd_dos.to_a[0][1]
+</pre>
+<p>
+として
+</p>
+<pre class="example">
+&lt;pymatgen.electronic_structure.dos.Dos object at 0x10d435710&gt;
+</pre>
+<p>
+となる．ここで，pymatgen.electronic_sctructure.dosでgoogleって，
+その先がdensitiesということをあたりをつけて，
+</p>
+<pre class="example">
+p s_d = spd_dos.to_a[0][1].densities
+</pre>
+<p>
+として
+</p>
+<pre class="example">
+{&lt;Spin.up: 1&gt;: array([  0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+...
+         0.00000000e+00])}
+</pre>
+<p>
+をえます．さらに
+</p>
+<pre class="example">
+s_list = PyCall::List.(s_d.to_a[0][1]).to_a
+</pre>
+<p>
+としてs_dのhash構造をarrayにして[0][1]でvalsを取り出し，
+さらにそれをto_aで
+rubyが解釈できるdata構造に変換します．
+</p>
+
+<p>
+慣れると同じcodeの繰り返しなんでそれほど苦労なくなるんですが，
+多分時間が経てば忘れるね．
+そこをlibに組み込んで欲しいが，dictを直接読むのは文字だけのよう．．．
+code書いて，pull reqかけてみるか．
+</p>
+
+<p>
+densitiesやenergyはnameがわからないとどうしようもなくて，
+これは，pymatgenのsource codeを読んで見つける．
+どうもpycallを使うには，こういうのを繰り返す必要がありそうだ．
+以下は，gnuplotでpartial dosまで書いたやつ．
+</p>
+<div class="org-src-container">
+<pre class="src src-ruby">require <span style="color: #8b2252;">'pycall/import'</span>
+include <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">Import</span>
+
+pyimport <span style="color: #008b8b;">:sys</span>
+pyimport <span style="color: #8b2252;">'numpy'</span>, <span style="color: #008b8b;">as</span>: <span style="color: #008b8b;">:np</span>
+pyfrom <span style="color: #8b2252;">'pymatgen.io.vasp.outputs'</span>, <span style="color: #008b8b;">import</span>: :<span style="color: #228b22;">Vasprun</span>
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">dos</span>
+dosrun = <span style="color: #228b22;">Vasprun</span>.(<span style="color: #8b2252;">"../dos_calc_fine/vasprun.xml"</span>)
+
+e_object = (dosrun.tdos.energies - dosrun.efermi)
+energy = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">List</span>.(e_object).to_a
+spd_dos = dosrun.complete_dos.get_spd_dos()
+spd = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">Dict</span>.(spd_dos)
+s_d = spd.to_a[0][1].densities
+s_list = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">List</span>.(s_d.to_a[0][1]).to_a
+p_d = spd.to_a[1][1].densities
+p_list = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">List</span>.(p_d.to_a[0][1]).to_a
+d_d = spd.to_a[2][1].densities
+d_list = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">List</span>.(d_d.to_a[0][1]).to_a
+tdos = dosrun.tdos.densities
+t_list = <span style="color: #228b22;">PyCall</span>::<span style="color: #228b22;">List</span>.(tdos.to_a[0][1]).to_a
+
+require <span style="color: #8b2252;">'numo/gnuplot'</span>
+<span style="color: #228b22;">Numo</span>.gnuplot <span style="color: #a020f0;">do</span>
+  set <span style="color: #008b8b;">yrange</span>: <span style="color: #8b2252;">'[-10:10]'</span>
+  plot [s_list, energy, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">title</span>: <span style="color: #8b2252;">'s'</span>],
+  [p_list, energy, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">title</span>: <span style="color: #8b2252;">'p'</span>],
+  [d_list, energy, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">title</span>: <span style="color: #8b2252;">'d'</span>],
+  [t_list, energy, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">title</span>: <span style="color: #8b2252;">'total'</span>]
+<span style="color: #a020f0;">end</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd2f0277" class="outline-3">
+<h3 id="orgd2f0277"><span class="section-number-3">3.3</span> numo/gnuplot</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>gnuplotが持っている資産，</li>
+</ul>
+<p>
+あるいはgnuplotを使ってきた人の
+スキルをそのままrubyで活かせる．
+</p>
+<ul class="org-ul">
+<li>data加工や調整に馴染みのあるrubyが使えて，</li>
+<li>coding環境がそのままというのはとても便利．</li>
+</ul>
+</div>
+
+<div id="outline-container-org721731a" class="outline-4">
+<h4 id="org721731a">線のgradation</h4>
+<div class="outline-text-4" id="text-org721731a">
+<p>
+細かい線に分割してrgbで指定しながら
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ruby"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">mk_band_plot_data</span>(x, y, rgbs, plot_data, e_f=0.0)
+  (x.size-1).times <span style="color: #a020f0;">do</span> |i|
+    xx = [x[i],x[i+1]]
+    yy = [y[i]-e_f,y[i+1]-e_f]
+    rgb = rgbs[i]
+    plot_data &lt;&lt; [xx, yy, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">lw</span>: 2, <span style="color: #008b8b;">lc_rgb</span>: rgb, <span style="color: #008b8b;">notitle</span>: <span style="color: #8b2252;">''</span>]
+  <span style="color: #a020f0;">end</span>
+<span style="color: #a020f0;">end</span>
+</pre>
+</div>
+<p>
+としてgradiation lineのplot_dataを作る.
+それを，
+</p>
+<pre class="example">
+plot *band_plot_data
+
+</pre>
+<p>
+としてplotしている．
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ruby">require <span style="color: #8b2252;">'numo/gnuplot'</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">an example of gradient line color plot, the original from</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">http://gnuplot-surprising.blogspot.com/2011/09/gradient-colored-curve-in-gnuplot0.html</span>
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">f</span>(x)
+  <span style="color: #a020f0;">return</span> <span style="color: #228b22;">Math</span>.exp(-0.33*x)*<span style="color: #228b22;">Math</span>.sin(5.0*<span style="color: #228b22;">Math</span>::<span style="color: #228b22;">PI</span>*x)   <span style="color: #b22222;">#</span><span style="color: #b22222;">The function to be plotted</span>
+<span style="color: #a020f0;">end</span>
+n=100   <span style="color: #b22222;">#</span><span style="color: #b22222;">divide the whole curve into n segments</span>
+
+plot_data = []
+range = 10
+<span style="color: #b22222;">#</span><span style="color: #b22222;">Plot the n segments of the curve</span>
+n.times <span style="color: #a020f0;">do</span> |i|
+  <span style="color: #b22222;">#  </span><span style="color: #b22222;">i&lt;=x*n/range &amp;&amp; x*n/range&lt;(i+1.5) ?f(x):1/0 \</span>
+  x = [(i-0.5)/n*range,i.to_f/n*range,(i+0.5)/n*range]
+  y = [f(x[0]),f(x[1]),f(x[2])]
+  plot_data &lt;&lt; [x, y, <span style="color: #008b8b;">w</span>: <span style="color: #008b8b;">:l</span>, <span style="color: #008b8b;">lw</span>: 2, <span style="color: #008b8b;">lc</span>: <span style="color: #008b8b;">:palette</span>, <span style="color: #008b8b;">cb</span>: i, <span style="color: #008b8b;">notitle</span>: <span style="color: #8b2252;">''</span>]
+<span style="color: #a020f0;">end</span>
+
+<span style="color: #228b22;">Numo</span>.gnuplot <span style="color: #a020f0;">do</span>
+  set <span style="color: #008b8b;">term</span>: <span style="color: #8b2252;">'png'</span>
+  set <span style="color: #008b8b;">output</span>: <span style="color: #8b2252;">"gradient_colored_curve1.png"</span>
+<span style="color: #b22222;">#  </span><span style="color: #b22222;">set samples: 300 #must be large enough for each segment have at least 2 samples</span>
+  set <span style="color: #008b8b;">palette</span>: <span style="color: #8b2252;">'rgbformulae 30,13,10'</span>    <span style="color: #b22222;">#</span><span style="color: #b22222;">rainbow palette</span>
+  set <span style="color: #008b8b;">cbrange</span>: <span style="color: #8b2252;">"[0:</span><span style="color: #a0522d;">#{n}</span><span style="color: #8b2252;">]"</span>
+  set <span style="color: #008b8b;">xrange</span>: <span style="color: #8b2252;">"[0:</span><span style="color: #a0522d;">#{range}</span><span style="color: #8b2252;">]"</span>
+  unset <span style="color: #008b8b;">colorbox</span>: <span style="color: #8b2252;">''</span> <span style="color: #b22222;">#</span><span style="color: #b22222;">The colorbox will not plotted</span>
+  plot *plot_data
+<span style="color: #a020f0;">end</span>
+
+</pre>
+</div>
+
+
+<div id="orgb3b6fd2" class="figure">
+<p><img src="./gnuplot_gradient_line_ruby/gradient_colored_curve1.png" alt="gradient_colored_curve1.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>gradationのline描画</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orga966a1e" class="outline-4">
+<h4 id="orga966a1e">複数の図のplot</h4>
+<div class="outline-text-4" id="text-orga966a1e">
+<p>
+二つの図を描画するセット．
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ruby">  set <span style="color: #008b8b;">grid</span>: <span style="color: #8b2252;">'ytics lt 2'</span>
+  set <span style="color: #008b8b;">termoption</span>: <span style="color: #8b2252;">'enhanced'</span>
+  set <span style="color: #008b8b;">lmargin</span>: 0
+  set <span style="color: #008b8b;">rmargin</span>: 0
+  set <span style="color: #008b8b;">tmargin</span>: 0
+  set <span style="color: #008b8b;">bmargin</span>: 0
+  set <span style="color: #008b8b;">yrange</span>: <span style="color: #8b2252;">'[-10:10]'</span>
+  set <span style="color: #008b8b;">multiplot</span>: <span style="color: #8b2252;">'title "Band diagram of Cu" font ",18"'</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">dos gnuplot</span>
+  set <span style="color: #008b8b;">size</span>: <span style="color: #8b2252;">'0.3, 0.8'</span>
+  set <span style="color: #008b8b;">origin</span>: <span style="color: #8b2252;">'0.6, 0.1'</span>
+  set <span style="color: #008b8b;">xrange</span>: <span style="color: #8b2252;">'[0:7]'</span>
+  set <span style="color: #008b8b;">xlabel</span>: <span style="color: #8b2252;">'"Density of states" font ",18"'</span>
+  unset <span style="color: #008b8b;">ytics</span>: <span style="color: #8b2252;">''</span>
+  unset <span style="color: #008b8b;">xtics</span>: <span style="color: #8b2252;">''</span>
+  plot *dos_plot_data
+<span style="color: #b22222;"># </span><span style="color: #b22222;">band gnuplot</span>
+  set <span style="color: #008b8b;">grid</span>: <span style="color: #8b2252;">'xtics lt 1'</span>
+  set <span style="color: #008b8b;">size</span>: <span style="color: #8b2252;">'0.5, 0.8'</span>
+  set <span style="color: #008b8b;">origin</span>: <span style="color: #8b2252;">'0.1, 0.1'</span>
+  set <span style="color: #008b8b;">xrange</span>: <span style="color: #8b2252;">"[0:</span><span style="color: #a0522d;">#{range}</span><span style="color: #8b2252;">]"</span>
+  set <span style="color: #008b8b;">ytics</span>: <span style="color: #8b2252;">'"2.5" font ",18"'</span>
+  set <span style="color: #008b8b;">xtics</span>: x_tics_str
+  set <span style="color: #008b8b;">ylabel</span>: <span style="color: #8b2252;">'"{/Times-Italic E-E}_f [eV]" font ",18"'</span>
+  set <span style="color: #008b8b;">xlabel</span>: <span style="color: #8b2252;">'"k-points" font ",18"'</span>
+  plot *band_plot_data
+  unset <span style="color: #008b8b;">multiplot</span>: <span style="color: #8b2252;">''</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 西谷滋人</p>
+<p class="date">Created: 2019-02-04 月 09:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

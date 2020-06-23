@@ -1,0 +1,19 @@
+ running on    8 nodes
+ distr:  one band on    1 nodes,    8 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and    1 ions
+ LDA part: xc-table for Ceperly-Alder, standard interpolation
+ generate k-points for:  48  48  48
+ found WAVECAR, reading the header
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ WARNING: wrap around errors must be expected
+ FFT: planning ...           1
+ reading WAVECAR
+ the WAVECAR file was read sucessfully
+ initial charge from wavefunction
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.372361719342E+01   -0.37236E+01   -0.43284E-06 45472   0.191E-02    0.406E-03
+DAV:   2    -0.372361735094E+01   -0.15752E-06   -0.56422E-06 44920   0.253E-02
+   1 F= -.37236174E+01 E0= -.37236174E+01  d E =0.000000E+00
+ writing wavefunctions

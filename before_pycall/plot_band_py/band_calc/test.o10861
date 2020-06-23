@@ -1,0 +1,34 @@
+ running on    7 nodes
+ distr:  one band on    1 nodes,    7 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and    1 ions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|  ADVICE TO THIS USER RUNNING 'VASP/VAMP'   (HEAR YOUR MASTER'S VOICE ...):  |
+|                                                                             |
+|      You enforced a specific xc-type in the INCAR file,                     |
+|      a different type was found on the POTCAR file                          |
+|          I HOPE YOU KNOW, WHAT YOU ARE  DOING                               |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+  number of k-points has changed, file:   8 present: 400
+  trying to continue reading WAVECAR, but it might fail
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ WARNING: wrap around errors must be expected
+ FFT: planning ...           1
+ reading WAVECAR
+ the WAVECAR file was read sucessfully
+ charge-density read from file: unknown                                 
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.379091435164E+00   -0.37909E+00   -0.17785E+03 11228   0.409E+02
+DAV:   2    -0.138578999746E+01   -0.10067E+01   -0.10057E+01 13482   0.280E+01
+DAV:   3    -0.138626378775E+01   -0.47379E-03   -0.47379E-03 15512   0.523E-01
+DAV:   4    -0.138626385277E+01   -0.65017E-07   -0.64557E-07 13986   0.369E-03
+   1 F= -.13862639E+01 E0= -.13862635E+01  d E =-.643420E-06
+ writing wavefunctions

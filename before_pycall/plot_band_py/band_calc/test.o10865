@@ -1,0 +1,19 @@
+ running on    7 nodes
+ distr:  one band on    1 nodes,    7 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and    1 ions
+ LDA part: xc-table for Ceperly-Alder, standard interpolation
+ found WAVECAR, reading the header
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ WARNING: wrap around errors must be expected
+ FFT: planning ...           1
+ reading WAVECAR
+ the WAVECAR file was read sucessfully
+ charge-density read from file: unknown                                 
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.233969433393E+01   -0.23397E+01   -0.71340E-03 12404   0.658E-01
+DAV:   2    -0.233969475720E+01   -0.42327E-06   -0.42330E-06 13734   0.130E-02
+   1 F= -.23396948E+01 E0= -.23396947E+01  d E =-.155937E-06
+ writing wavefunctions
